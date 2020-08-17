@@ -9,11 +9,12 @@
     public partial class TimePickerViewModel : ViewModelBase
     {
         private AnalogueTime _time;
-        //private DigitalTime _digitalTime;
+
 
         public TimePickerViewModel()
         {
             _time = new AnalogueTime(0, 0, Meridiem.AM);
+            SetAmPm = new Command(OnSetAmPm);
         }
 
 #pragma warning disable CS0108 // Member hides inherited member; missing new keyword
@@ -48,13 +49,15 @@
             }
         }
 
+        public Command SetAmPm { get; }
+
         protected override async Task InitializeAsync()
         {
             await base.InitializeAsync();
 
             
         }
-        private void OnAMPMButton_Click(object sender, RoutedEventArgs e)
+        private void OnSetAmPm()
         {
             if (Time.Meridiem == Meridiem.AM)
             {

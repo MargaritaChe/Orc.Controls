@@ -65,6 +65,6 @@
                    FontSize="32"
                    Text="{Binding Time}" />
 
-        <Button Grid.Row="3" Content="AM/PM" Command="OnAmPmButtonClick"/>
+        <Button Grid.Row="3" Content="AM/PM" Command="{Binding SetAmPm}"/>
     </Grid>
 </catel:UserControl>
