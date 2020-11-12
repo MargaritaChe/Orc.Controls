@@ -1,8 +1,13 @@
-﻿namespace Orc.Controls
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="TimePicker.cs" company="">
+// Clock-like TimePicker control https://github.com/roy-t/TimePicker
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+namespace Orc.Controls
 {
     using System;
     using System.Windows;
-    public static class ClockMath
+    internal static class ClockMath
     {
         /// <summary>
         /// Computes the two points required for an indicator line on a circle
@@ -16,7 +21,7 @@
             var outerX = center.X + Math.Cos(radians) * endRadius;
             var outerY = center.Y + Math.Sin(radians) * endRadius;
 
-            return new Point[] { new Point(innerX, innerY), new Point(outerX, outerY) };
+            return new[] { new Point(innerX, innerY), new Point(outerX, outerY) };
         }
 
         /// <summary>
@@ -44,7 +49,7 @@
         {
             var angle = PointToAngle(center, point);
 
-            angle = angle % (Math.PI * 2);
+            angle %= (Math.PI * 2);
             angle += Math.PI / 2;
             angle /= Math.PI;
             angle *= 30;

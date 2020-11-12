@@ -143,25 +143,25 @@ namespace Orc.Controls
         #region Properties
         private int? Day
         {
-            get => (int?)_daysNumericTextBox.Value;
+            get => (int?)_daysNumericTextBox?.Value;
 #pragma warning disable WPF0035 // Use SetValue in setter.
-            set => _daysNumericTextBox.SetCurrentValue(NumericTextBox.ValueProperty, (double?)value);
+            set => _daysNumericTextBox?.SetCurrentValue(NumericTextBox.ValueProperty, (double?)value);
 #pragma warning restore WPF0035 // Use SetValue in setter.
         }
 
         private int? Month
         {
-            get => (int?)_monthNumericTextBox.Value;
+            get => (int?)_monthNumericTextBox?.Value;
 #pragma warning disable WPF0035 // Use SetValue in setter.
-            set => _monthNumericTextBox.SetCurrentValue(NumericTextBox.ValueProperty, (double?)value);
+            set => _monthNumericTextBox?.SetCurrentValue(NumericTextBox.ValueProperty, (double?)value);
 #pragma warning restore WPF0035 // Use SetValue in setter.
         }
 
         private int? Year
         {
-            get => (int?)_yearNumericTextBox.Value;
+            get => (int?)_yearNumericTextBox?.Value;
 #pragma warning disable WPF0035 // Use SetValue in setter.
-            set => _yearNumericTextBox.SetCurrentValue(NumericTextBox.ValueProperty, (double?)value);
+            set => _yearNumericTextBox?.SetCurrentValue(NumericTextBox.ValueProperty, (double?)value);
 #pragma warning restore WPF0035 // Use SetValue in setter.
         }
         #endregion
@@ -380,7 +380,7 @@ namespace Orc.Controls
 
         private void ApplyFormat()
         {
-            _formatInfo = DateTimeFormatHelper.GetDateTimeFormatInfo(Format, true, true);
+            _formatInfo = DateTimeFormatHelper.GetDateTimeFormatInfo(Format, true);
 
             IsYearShortFormat = _formatInfo.IsYearShortFormat;
             _yearNumericTextBox.SetCurrentValue(NumericTextBox.MinValueProperty, (double)(_formatInfo.IsYearShortFormat ? 0 : 1));

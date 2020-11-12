@@ -10,69 +10,93 @@ namespace Orc.Controls.Example.ViewModels
 {
     using System;
     using System.ComponentModel;
-    using System.Globalization;
     using System.Threading.Tasks;
-    using System.Windows;
-    using Catel.Collections;
     using Catel.Data;
     using Catel.MVVM;
     using Enums;
-    using Models;
 
     public class TimePickerViewModel : ViewModelBase
     {
+        #region Constructors
         public TimePickerViewModel()
         {
-            TimeValue = TimeSpan.Zero;
+            Time = TimeSpan.Zero;
             TimeValueString = string.Empty;
             AmPm = Meridiem.AM;
+            Is24Hour = true;
+            HourThickness = 6;
+            MinuteThickness = 4;
+            HourTickThickness = 3;
+            MinuteTickThickness = 2;
+            ClockBorderThickness = 0;
             SetNull = new Command(OnSetNullExecute);
-            SetAmPm = new Command(OnSetAmPm);
         }
+        #endregion
 
-        public TimeSpan? TimeValue { get; set; }
+        #region Properties
+        public TimeSpan? Time { get; set; }
         public string TimeValueString { get; set; }
         public Meridiem AmPm { get; set; }
+        public bool Is24Hour { get; set; }
+        public double HourThickness { get; set; }
+        public double MinuteThickness { get; set; }
+        public double HourTickThickness { get; set; }
+        public double MinuteTickThickness { get; set; }
+        public double ClockBorderThickness { get; set; }
+        #endregion
 
-        public Command SetNull { get; }
-        public Command SetAmPm { get; }
+        #region Methods
         protected override async Task InitializeAsync()
         {
             await base.InitializeAsync();
         }
-
-        private void OnSetNullExecute()
-        {
-            TimeValue = null;
-        }
-
-        private void OnSetAmPm()
-        {
-            switch
-                (AmPm)
-            {
-                case Meridiem.AM:
-                    AmPm = Meridiem.PM;
-                    break;
-                default:
-                    AmPm = Meridiem.AM;
-                    break;
-            }
-        }
-
         protected override void OnPropertyChanged(AdvancedPropertyChangedEventArgs e)
         {
             base.OnPropertyChanged(e);
 
-            if (TimeValue != null && !string.IsNullOrEmpty(e.PropertyName) && e.HasPropertyChanged(e.PropertyName) && TimeValue.Value != null)
+            if (Time != null && !string.IsNullOrEmpty(e.PropertyName) && e.HasPropertyChanged(e.PropertyName) && Time.Value != null)
             {
-                TimeValueString = TimeValue.Value.ToString() + " " + AmPm.ToString();
+                if (Is24Hour)
+                {
+                    if (AmPm == Meridiem.PM)
+                    {
+                        if (Time.Value.Hours < 12)
+                        {
+                            var newTimeValue = new TimeSpan(Time.Value.Hours + 12, Time.Value.Minutes, Time.Value.Seconds);
+                            TimeValueString = newTimeValue.ToString();
+                        }
+                        else
+                        {
+                            var newTimeValue = new TimeSpan(Time.Value.Hours - 12, Time.Value.Minutes, Time.Value.Seconds);
+                            TimeValueString = newTimeValue.ToString();
+                        }
+                    }
+                    else 
+                    {
+                        TimeValueString = Time.Value.ToString();
+                    }
+
+                }
+                else
+                {
+                    TimeValueString = Time.Value.ToString() + " " + AmPm.ToString();
+                }
+
             }
             else
             {
                 TimeValueString = string.Empty;
             }
         }
+        #endregion
+
+        #region Commands
+        public Command SetNull { get; }
+        private void OnSetNullExecute()
+        {
+            Time = null;
+        }
+        #endregion
     }
 
 }
