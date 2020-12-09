@@ -1,0 +1,51 @@
+﻿<catel:UserControl x:Class="Orc.Controls.Example.Views.SpinButtons"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:sys="clr-namespace:System;assembly=mscorlib"
+				   xmlns:catel="http://schemas.catelproject.com" 
+                   xmlns:controls="http://schemas.wildgums.com/orc/controls"
+                   xmlns:orccontrols="clr-namespace:Orc.Controls;assembly=Orc.Controls">
+
+    <catel:UserControl.Resources>
+
+        <ObjectDataProvider x:Key="orientationFromEnum"
+                            MethodName="GetValues" 
+                            ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="Orientation"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+    </catel:UserControl.Resources>
+    
+    <controls:StackGrid>
+        <controls:StackGrid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+        </controls:StackGrid.RowDefinitions>
+        
+        <controls:StackGrid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="Auto"/>
+        </controls:StackGrid.ColumnDefinitions>
+
+        <orccontrols:SpinButtons Orientation="{Binding ElementName=OrientationComboBox, Path=SelectedValue}" UpArrowLocation="Left" Value="{Binding Val}" MinValue="{Binding Min}" MaxValue="{Binding Max}" Step="{Binding Step}" Grid.ColumnSpan="2">
+        </orccontrols:SpinButtons>
+
+        <TextBlock Text="Minimum" />
+        <TextBox Height="25" Width="50" Text="{Binding Min, Mode=TwoWay}" />
+
+        <TextBlock Text="Maximum" />
+        <TextBox Height="25" Width="50" Text="{Binding Max, Mode=TwoWay}" />
+
+        <TextBlock Text="Increment" />
+        <TextBox Height="25" Width="50" Text="{Binding Step, Mode=TwoWay}"/>
+
+        <TextBlock Text="Buttons orientation" />
+        <ComboBox x:Name="OrientationComboBox" ItemsSource="{Binding Source={StaticResource orientationFromEnum}}"/>
+
+    </controls:StackGrid>
+</catel:UserControl>
