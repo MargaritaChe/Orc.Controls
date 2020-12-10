@@ -1,4 +1,3 @@
-﻿
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="SpinButtons.cs" company="">
 // Clock-like TimePicker control https://github.com/roy-t/TimePicker

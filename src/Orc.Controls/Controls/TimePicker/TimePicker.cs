@@ -301,7 +301,7 @@ namespace Orc.Controls
             Canvas.SetLeft(_amPmButton, width * 0.73);
             Canvas.SetTop(_amPmButton, height * 0.46);
 
-            _amPmButton.SetCurrentValue(StyleProperty, new Style(typeof(ToggleButton))
+            /*_amPmButton.SetValue(StyleProperty, new Style(typeof(ToggleButton))
             {
                 BasedOn = FindResource("Orc.Styles.ToggleButton") as Style,
                 Setters =
@@ -309,7 +309,7 @@ namespace Orc.Controls
                     new Setter(WidthProperty, amPmButtonWidth),
                     new Setter(HeightProperty, amPmButtonHeight),
                 }
-            });
+            });*/
         }
 
         private Size MeasureString(string s, double fontSize)
